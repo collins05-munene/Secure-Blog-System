@@ -1,0 +1,2 @@
+Build a backend system where users can create posts, but only the owner controls them.
+This one targets a different skill set: authentication, ownership, and access control — things real apps depend on.
