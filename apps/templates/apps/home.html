@@ -1,0 +1,37 @@
+{% extends 'apps/base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+    <h1>Homepage</h1>
+    <ul>
+        <li><a href="{% url 'create-post' %}">Create Post</a></li>
+    </ul>
+    {% for post in posts %}
+        {% if post.is_published == True %}
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+            <small>{{post.author}}</small>
+            <p>{{post.is_published}}</p>
+        {% else %}
+            <p>No published post.</p>
+        {% endif %}
+        {% if post.author == request.user %}
+            <li><a href="{% url 'update-post' post.id %}">Update Post</a></li>
+        {% endif %}
+    {% empty %}
+        <p>No Posts</p>
+    {% endfor %}
+    <h2>Unpublished Post</h2>
+    {% for post in posts %}
+        {% if post.is_published == False %}
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+            <small>{{post.author}}</small>
+            <p>{{post.is_published}}</p>
+            {% if post.author == request.user %}
+            <li><a href="{% url 'update-post' post.id %}">Publish</a></li>
+        {% endif %}
+        {% endif %}
+
+    {% endfor %}
+{% endblock %}
